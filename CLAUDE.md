@@ -44,7 +44,7 @@ Cloud Run: FastAPI service
 ## Build Roadmap
 
 ### Phase 1 — GCP Project Setup
-- [ ] 1.1 Create or confirm GCP project and note the project ID
+- [✅] 1.1 Create or confirm GCP project and note the project ID
 - [ ] 1.2 Enable required APIs: Cloud Storage, Pub/Sub, Cloud Run, Cloud SQL, Artifact Registry
 - [ ] 1.3 Install and authenticate `gcloud` CLI locally
 
