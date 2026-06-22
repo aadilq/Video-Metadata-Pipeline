@@ -46,7 +46,7 @@ Cloud Run: FastAPI service
 ### Phase 1 — GCP Project Setup
 - [✅] 1.1 Create or confirm GCP project and note the project ID
 - [✅] 1.2 Enable required APIs: Cloud Storage, Pub/Sub, Cloud Run, Cloud SQL, Artifact Registry
-- [ ] 1.3 Install and authenticate `gcloud` CLI locally
+- [✅] 1.3 Install and authenticate `gcloud` CLI locally
 
 ### Phase 2 — GCS Bucket
 - [ ] 2.1 Create a GCS bucket for video uploads
