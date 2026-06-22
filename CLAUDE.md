@@ -49,8 +49,8 @@ Cloud Run: FastAPI service
 - [✅] 1.3 Install and authenticate `gcloud` CLI locally
 
 ### Phase 2 — GCS Bucket
-- [ ] 2.1 Create a GCS bucket for video uploads
-- [ ] 2.2 Configure a GCS Pub/Sub notification on the bucket (fires on object finalize)
+- [✅] 2.1 Create a GCS bucket for video uploads
+- [] 2.2 Configure a GCS Pub/Sub notification on the bucket (fires on object finalize)
 
 ### Phase 3 — Pub/Sub Topic & Subscription
 - [ ] 3.1 Create the `metadata_analysis` topic
