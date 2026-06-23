@@ -53,7 +53,7 @@ Cloud Run: FastAPI service
 - [] 2.2 Configure a GCS Pub/Sub notification on the bucket (fires on object finalize)
 
 ### Phase 3 — Pub/Sub Topic & Subscription
-- [ ] 3.1 Create the `metadata_analysis` topic
+- [✅] 3.1 Create the `metadata_analysis` topic
 - [ ] 3.2 Create a push subscription pointed at the Cloud Run `/analyze` endpoint
 
 ### Phase 4 — Cloud SQL
