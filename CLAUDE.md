@@ -58,7 +58,7 @@ Cloud Run: FastAPI service
 
 ### Phase 4 — Cloud SQL
 - [✅] 4.1 Create a Postgres Cloud SQL instance
-- [ ] 4.2 Create a database and `videos` table (id, bucket, object_name, duration_seconds, scene_count, processed_at)
+- [✅] 4.2 Create a database and `videos` table (id, bucket, object_name, duration_seconds, scene_count, processed_at)
 - [ ] 4.3 Note the connection string / Cloud SQL instance connection name
 
 ### Phase 5 — FastAPI Service
