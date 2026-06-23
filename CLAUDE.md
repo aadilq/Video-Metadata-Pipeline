@@ -57,7 +57,7 @@ Cloud Run: FastAPI service
 - [ ] 3.2 Create a push subscription pointed at the Cloud Run `/analyze` endpoint
 
 ### Phase 4 — Cloud SQL
-- [ ] 4.1 Create a Postgres Cloud SQL instance
+- [✅] 4.1 Create a Postgres Cloud SQL instance
 - [ ] 4.2 Create a database and `videos` table (id, bucket, object_name, duration_seconds, scene_count, processed_at)
 - [ ] 4.3 Note the connection string / Cloud SQL instance connection name
 
