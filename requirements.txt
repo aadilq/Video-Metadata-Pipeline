@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+google-cloud-storage
+psycopg2-binary
+httpx
+
