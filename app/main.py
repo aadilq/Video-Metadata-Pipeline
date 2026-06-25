@@ -26,5 +26,6 @@ async def analyze(payload: PubSubPush):
 
     return {"status": "recieved", "bucket": bucket, "object_name": object_name}
 
-
-    
+@app.get('/health')
+async def health():
+    return {"status": "health"}
