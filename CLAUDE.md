@@ -41,6 +41,47 @@ Cloud Run: FastAPI service
 
 ---
 
+##Data Flow with Example dataset
+```
+  ---
+  Step 1 — GCS fires this JSON notification to Pub/Sub:
+  {
+    "bucket": "video-metadata-uploads-myproject123",
+    "name": "vacation.mp4",
+    "contentType": "video/mp4",
+    "size": "104857600"
+  }
+
+  ---
+  Step 2 — Pub/Sub base64-encodes that JSON and wraps it in a push message:
+  {
+    "message": {
+      "data": "eyJidWNrZXQiOiAidmlkZW8tbWV0YWRhdGEtdXBsb2Fkcy1teXByb2plY3QxMjMiLC
+  AibmFtZSI6ICJ2YWNhdGlvbi5tcDQifQ==",
+      "messageId": "12345",
+      "publishTime": "2026-06-24T10:00:00Z"
+    },
+    "subscription":
+  "projects/video-metadata-pipeline/subscriptions/metadata_analysis_sub"
+  }
+
+  That long data string is just the Step 1 JSON, base64-encoded.
+
+  ---
+  Step 3 — Our /analyze endpoint decodes it back:
+  base64.b64decode(payload.message.data)
+  # → b'{"bucket": "video-metadata-uploads-myproject123", "name": 
+  "vacation.mp4"}'
+  
+  json.loads(...)
+  # → {"bucket": "video-metadata-uploads-myproject123", "name": "vacation.mp4"}
+  
+  bucket = data["bucket"]       # "video-metadata-uploads-myproject123"
+  object_name = data["name"]    # "vacation.mp4"
+
+  ---
+```
+---
 ## Build Roadmap
 
 ### Phase 1 — GCP Project Setup
