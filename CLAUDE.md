@@ -106,8 +106,8 @@ Cloud Run: FastAPI service
 - [✅] 5.1 Scaffold the FastAPI project structure
 - [✅] 5.2 Implement `/analyze` endpoint — parse Pub/Sub push message, extract GCS object info
 - [✅] 5.3 Add GCS download logic (stream video to `/tmp`)
-- [ ] 5.4 Add FFmpeg analysis logic (duration + scene count)
-- [ ] 5.5 Add Cloud SQL write logic (insert results row)
+- [✅] 5.4 Add FFmpeg analysis logic (duration + scene count)
+- [✅] 5.5 Add Cloud SQL write logic (insert results row)
 - [ ] 5.6 Add webhook fire logic (POST to configured URL)
 - [ ] 5.7 Add `/health` endpoint for Cloud Run health checks
 - [ ] 5.8 Write Dockerfile (include FFmpeg)
