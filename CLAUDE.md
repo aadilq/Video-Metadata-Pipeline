@@ -110,7 +110,7 @@ Cloud Run: FastAPI service
 - [✅] 5.5 Add Cloud SQL write logic (insert results row)
 - [✅] 5.6 Add webhook fire logic (POST to configured URL)
 - [ ] 5.7 Add `/health` endpoint for Cloud Run health checks
-- [ ] 5.8 Write Dockerfile (include FFmpeg)
+- [✅] 5.8 Write Dockerfile (include FFmpeg)
 
 ### Phase 6 — Cloud Run Deployment
 - [ ] 6.1 Build and push Docker image to Artifact Registry
