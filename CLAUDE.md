@@ -113,7 +113,7 @@ Cloud Run: FastAPI service
 - [✅] 5.8 Write Dockerfile (include FFmpeg)
 
 ### Phase 6 — Cloud Run Deployment
-- [ ] 6.1 Build and push Docker image to Artifact Registry
+- [✅] 6.1 Build and push Docker image to Artifact Registry
 - [ ] 6.2 Deploy image to Cloud Run, set env vars (DB connection, webhook URL)
 - [ ] 6.3 Copy the deployed Cloud Run URL back into the Pub/Sub push subscription
 
