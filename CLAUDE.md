@@ -95,7 +95,7 @@ Cloud Run: FastAPI service
 
 ### Phase 3 — Pub/Sub Topic & Subscription
 - [✅] 3.1 Create the `metadata_analysis` topic
-- [ ] 3.2 Create a push subscription pointed at the Cloud Run `/analyze` endpoint
+- [✅] 3.2 Create a push subscription pointed at the Cloud Run `/analyze` endpoint
 
 ### Phase 4 — Cloud SQL
 - [✅] 4.1 Create a Postgres Cloud SQL instance
