@@ -4,7 +4,7 @@ import json
 def analyze_videos(local_path: str) -> dict:
     duration = get_duration(local_path)
     scene_count = get_scene_count(local_path)
-    return {"duration": duration, "scene_count": scene_count}
+    return {"duration_seconds": duration, "scene_count": scene_count}
 
 
 def get_duration(local_path: str) -> float:

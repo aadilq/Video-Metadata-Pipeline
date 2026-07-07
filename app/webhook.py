@@ -6,7 +6,7 @@ def fire_webhook(bucket: str, object_name: str, duration_seconds: float, scene_c
 
     payload = {
         "bucket": bucket, 
-        "object_name": object, 
+        "object_name": object_name,
         "duration_seconds": duration_seconds,
         "scene_count": scene_count
     }

@@ -118,10 +118,10 @@ Cloud Run: FastAPI service
 - [ ] 6.3 Copy the deployed Cloud Run URL back into the Pub/Sub push subscription
 
 ### Phase 7 — End-to-End Test
-- [ ] 7.1 Upload a test video to the GCS bucket
-- [ ] 7.2 Confirm Pub/Sub message was received by Cloud Run (check logs)
-- [ ] 7.3 Confirm metadata row appears in Cloud SQL
-- [ ] 7.4 Confirm webhook fired (check downstream consumer / request bin)
+- [✅] 7.1 Upload a test video to the GCS bucket
+- [✅] 7.2 Confirm Pub/Sub message was received by Cloud Run (check logs)
+- [✅] 7.3 Confirm metadata row appears in Cloud SQL
+- [✅] 7.4 Confirm webhook fired (check downstream consumer / request bin)
 
 ### Phase 8 — Terraform (post-MVP)
 - [ ] 8.1 Write Terraform configs for GCS, Pub/Sub, Cloud SQL, Cloud Run, Artifact Registry
