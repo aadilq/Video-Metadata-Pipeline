@@ -19,8 +19,8 @@ def save_metadata(bucket: str, object_name: str, duration_seconds: float, scene_
                 """
                 INSERT INTO videos (bucket, object_name, duration_seconds, scene_count, processed_at)
                 VALUES (%s, %s, %s, %s, %s)
-                """
-                (bucket, object_name, duration_seconds, scene_count, datetime.now(timezone.etc))
+                """,
+                (bucket, object_name, duration_seconds, scene_count, datetime.now(timezone.utctc))
             )
             connection.commit()
     finally:
