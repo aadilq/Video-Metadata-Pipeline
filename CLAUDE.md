@@ -124,7 +124,7 @@ Cloud Run: FastAPI service
 - [✅] 7.4 Confirm webhook fired (check downstream consumer / request bin)
 
 ### Phase 8 — Terraform (post-MVP)
-- [ ] 8.1 Write Terraform configs for GCS, Pub/Sub, Cloud SQL, Cloud Run, Artifact Registry
+- [✅] 8.1 Write Terraform configs for GCS, Pub/Sub, Cloud SQL, Cloud Run, Artifact Registry
 - [ ] 8.2 `terraform plan` against existing infrastructure, reconcile drift
 - [ ] 8.3 `terraform apply` — hand off resource management to Terraform
 
