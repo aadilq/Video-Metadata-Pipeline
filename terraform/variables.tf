@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "region" {
     description = "GCP region"
-    default = "us-central1
+    default = "us-central1"
 }
 
 variable "db_password" {
