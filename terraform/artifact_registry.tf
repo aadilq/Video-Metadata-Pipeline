@@ -1,5 +1,5 @@
 resource "google_artifact_registry_repository" "video_metadata_repo" {
   location      = var.region
-  repository_id = "video_metadata_repo"
+  repository_id = "video-metadata-repo"
   format        = "DOCKER"
 }
