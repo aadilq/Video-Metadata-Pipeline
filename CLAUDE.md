@@ -19,7 +19,7 @@ User
  │
  │  1. Upload video
  ▼
-GCS Bucket (videos/)
+GCS Bucket (any object, no prefix filter)
  │
  │  2. GCS emits storage notification → Pub/Sub topic: `metadata_analysis`
  ▼
