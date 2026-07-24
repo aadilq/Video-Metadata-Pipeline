@@ -30,3 +30,13 @@ Last thing to note is that when the project was created, GCP automatically creat
 ## Phase 2
 
 Within GCP, the first resource that we set up was the storage bucket because the first action in our pipeline consists of uploading a video to a Cloud Storage bucket. However, a notification is sent only to the pub/sub when the object (video) has finished being written and is fully durable in the bucket. This gurantees that the pipeline never starts processing a video that's still mid-upload. Last but not least, we specify the payload format to be `JSON_API_V1` which produces the JSON shape that is shown in the Claude.md data flow example. 
+
+## Phase 3
+
+Phase 3 starts with us creating the `metadata_analysis` Pub/Sub topic as it recieves the JSON message from the Google Cloud Storage bucket. However, the Pub/Sub topic itself does nothing else - it doesn't know or care who's listening, it doesn't push anywhere or encode anything. 
+
+This is where `metadata_analysis_sub` comes in. the `metadata_analysis_sub` is a separate resource attached to the `metadata_analysis` Pub/Sub topic that will listen to the topic and actually deliver the message somewhere. 
+
+In our case, the delivery is configured as a push subscription, meaning Pub/Sub itself will make an outbound HTTP post to a specified url - here, <cloud-run-url>/analyze. 
+
+So the accurate chain is: GCS → publishes JSON into the topic → the subscription(which is watching that topic) picks it up and pushes it as an HTTP POST to your Cloud Run /analyze endpoint.
