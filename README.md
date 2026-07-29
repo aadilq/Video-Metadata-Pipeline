@@ -40,3 +40,17 @@ This is where `metadata_analysis_sub` comes in. the `metadata_analysis_sub` is a
 In our case, the delivery is configured as a push subscription, meaning Pub/Sub itself will make an outbound HTTP post to a specified url - here, <cloud-run-url>/analyze. 
 
 So the accurate chain is: GCS → publishes JSON into the topic → the subscription(which is watching that topic) picks it up and pushes it as an HTTP POST to your Cloud Run /analyze endpoint.
+
+## Phase 4
+
+In Phase 4, we focus on setting up the Cloud SQL component of the pipeline. There is a three-layer hierarchy made up of three distinct resources and levels. 
+
+1. The instance (video-metadata-db) - this is the actual postgres server, version 15, sized at db-f1-micro (smallest low-cost database tier, meant for light dev workloads). 
+
+2. The database (video_metadata) - a logical database inside that server. One instance can host multiple database. We have one. 
+
+3. The user (postgres) - the SQL role that our app authenticates as.. 
+
+Note mentioning - the one piece of information that is not listed is the actual table itself and that is because we chose not to manage the schema in Terraform. the `videos` table was created manually, outside of Iac. 
+
+the last bit is that our app never talks to Postgres directly; it hands the request to the proxy through a local connection (a unix socket), the proxy handles encryption and authentication with the actual database.
