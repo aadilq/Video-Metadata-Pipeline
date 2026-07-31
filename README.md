@@ -54,3 +54,30 @@ In Phase 4, we focus on setting up the Cloud SQL component of the pipeline. Ther
 Note mentioning - the one piece of information that is not listed is the actual table itself and that is because we chose not to manage the schema in Terraform. the `videos` table was created manually, outside of Iac. 
 
 the last bit is that our app never talks to Postgres directly; it hands the request to the proxy through a local connection (a unix socket), the proxy handles encryption and authentication with the actual database.
+
+## Phase 5
+
+Phase 5 begins with us creating the FastAPI project structure. We start off with writing out the `analyze` endpoint which takes in the Pub/Sub payload, and extracting the GCS object info. 
+
+We start off with defining two pydantic model classes. These two classes define the exact shape FastAPI should expect the incoming push request (see Phase 3). This allows FastAPI to validate the incoming JSON and rejecting it a 422 automatically if its malformed. 
+
+Within the Pub/Sub message, `data` is the only field carrying the real event payload — everything else in the envelope is Pub/Sub's own metadata about the delivery, so it's the only thing that needs unwrapping. We unwrap it into raw JSON data then parse it into a Python dict, from there getting the bucket and file name. 
+
+we take the bucket and file name, pass it into the download_video function. The function gets into contact with the GCS and gets references to both the GCS bucket and the specific file inside the bucket. We strip the folder prefix of the file (e.g "uploads/vacation.mp4" → "vacation.mp4"), build the local path where the file will be saved inside of the container, download the video, and return the local path.
+
+once the video is downloaded to the tmp folder on our cloud run container, we run it through the FFmpeg analysis. we spawn an ffprobe process in which runs. 
+
+`result = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "json", local_path],
+        capture_output=True, text=True, check=True
+    )`
+
+In order for FFmpeg to work at all, we install the real compiled binary via the OS package manager in our docker file which is why later on, we specify: 
+
+`apt-get install -y ffmpeg`
+
+
+
+
+
+
