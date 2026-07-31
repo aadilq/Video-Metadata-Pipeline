@@ -65,7 +65,8 @@ Within the Pub/Sub message, `data` is the only field carrying the real event pay
 
 we take the bucket and file name, pass it into the download_video function. The function gets into contact with the GCS and gets references to both the GCS bucket and the specific file inside the bucket. We strip the folder prefix of the file (e.g "uploads/vacation.mp4" → "vacation.mp4"), build the local path where the file will be saved inside of the container, download the video, and return the local path.
 
-once the video is downloaded to the tmp folder on our cloud run container, we run it through the FFmpeg analysis. we spawn an ffprobe process in which runs. 
+once the video is downloaded to the tmp folder on our cloud run container, we run it through the FFmpeg analysis. Every time analyze_videos() runs,
+it spawns ffprobe and ffmpeg as short-lived child processes — each one starts, does its one job (read duration / detect scenes), exits, and hands its output back — while the parent Python process keeps running the whole service.
 
 `result = subprocess.run(
         ["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "json", local_path],
