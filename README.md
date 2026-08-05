@@ -57,14 +57,19 @@ the last bit is that our app never talks to Postgres directly; it hands the requ
 
 ## Phase 5
 
+
+### 5.1
 Phase 5 begins with us creating the FastAPI project structure. We start off with writing out the `analyze` endpoint which takes in the Pub/Sub payload, and extracting the GCS object info. 
 
+### 5.2
 We start off with defining two pydantic model classes. These two classes define the exact shape FastAPI should expect the incoming push request (see Phase 3). This allows FastAPI to validate the incoming JSON and rejecting it a 422 automatically if its malformed. 
 
 Within the Pub/Sub message, `data` is the only field carrying the real event payload — everything else in the envelope is Pub/Sub's own metadata about the delivery, so it's the only thing that needs unwrapping. We unwrap it into raw JSON data then parse it into a Python dict, from there getting the bucket and file name. 
 
+### 5.3
 we take the bucket and file name, pass it into the download_video function. The function gets into contact with the GCS and gets references to both the GCS bucket and the specific file inside the bucket. We strip the folder prefix of the file (e.g "uploads/vacation.mp4" → "vacation.mp4"), build the local path where the file will be saved inside of the container, download the video, and return the local path.
 
+### 5.4
 once the video is downloaded to the tmp folder on our cloud run container, we run it through the FFmpeg analysis. Every time analyze_videos() runs,
 it spawns ffprobe and ffmpeg as short-lived child processes — each one starts, does its one job (read duration / detect scenes), exits, and hands its output back — while the parent Python process keeps running the whole service.
 
@@ -77,8 +82,21 @@ In order for FFmpeg to work at all, we install the real compiled binary via the 
 
 `apt-get install -y ffmpeg`
 
+### 5.5
+Next up, we write out the FFmpeg analysis results to the Cloud SQL. cloudDb.py takes care of two things: opening a connection to Postgres, and using that connection to insert one rows into the `video_metadata` database. 
 
+For opening a connection to our postgres database, we set up a function `get_connection` that uses the psycopg2 library to allow our python code talk to our PostgreSQL database. we use `psycopg2.connect` to open a live session to the database using four env vars and return a connection object representing that open session. 
 
+The `save_metadata` function is where we combine the function above with a sql statement to insert the data (bucket, object_name, duration_seconds, scene_count) in the videos table. 
+
+`save_metadata(bucket, object_name, results["duration_seconds"], results["scene_count"])` 
+is called after analyze_videos() - so the row is written to postgres before anything is pushed downstream. 
+
+### 5.6
+Now that our data has been written to the Postgres, we can add a webhook fire logic to send the results to whoever needs them. in webhook.py, we set up a function `fire_webhook` that reads the webhook URL from an environment variable. we set up a variable `payload` with all of the data in json format. we send one HTTP POST request to the webhook URL, with payload automatically serialized as the JSON body, and the server's reply is stored in  response.
+
+### 5.8
+last but not least, we write up a dockerfile that packages all of our requirements and code into an image which we can deploy and use on cloud run. we specify the base image to be `python:3.11-slim` upon which we build upon. we run `apt-get update` which downloads the newest list of available apps and updates but does not actually install any software. next we run `apt-get install -y ffmpeg` which automatically downloads and installs ffmpeg. the rest of the dockerfile is pretty standard code of just setting up our working directory, copying everything over from requirements.txt and our code and setting up the command that will run once the container boots up. 
 
 
 
